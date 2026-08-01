@@ -37,3 +37,28 @@
 #include <iostream>
 using namespace std;
 
+#include <iostream>
+using namespace std;
+
+bool checkPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    int val;
+    cout << "Enter a number: ";
+    cin >> val;
+
+    if (checkPrime(val)) {
+        cout << val << " is a prime number." << endl;
+    } else {
+        cout << val << " is NOT a prime number." << endl;
+    }
+
+    return 0;
+}
+

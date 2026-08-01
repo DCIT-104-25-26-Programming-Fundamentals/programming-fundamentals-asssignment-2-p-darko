@@ -80,3 +80,90 @@
 #include <string>
 using namespace std;
 
+void addTask(vector<string> &todoList) {
+    cout << "Enter task: ";
+    string item;
+    getline(cin, item);
+    if (item.empty()) getline(cin, item);
+    todoList.push_back(item);
+    cout << "Task added: \"" << item << "\"" << endl;
+}
+
+void viewTasks(const vector<string> &todoList) {
+    if (todoList.empty()) {
+        cout << "No tasks found. Your to-do list is empty." << endl;
+        return;
+    }
+
+    cout << "Your Tasks:" << endl;
+    for (size_t k = 0; k < todoList.size(); ++k) {
+        cout << (k + 1) << ". " << todoList[k] << endl;
+    }
+}
+
+void deleteTask(vector<string> &todoList) {
+    if (todoList.empty()) {
+        cout << "No tasks to delete." << endl;
+        return;
+    }
+
+    cout << "Enter task number to delete: ";
+    int target;
+    if (!(cin >> target)) {
+        cout << "Invalid input." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return;
+    }
+    if (target < 1 || target > static_cast<int>(todoList.size())) {
+        cout << "Error: Invalid task number." << endl;
+        return;
+    }
+
+    string deletedItem = todoList[target - 1];
+    todoList.erase(todoList.begin() + (target - 1));
+    cout << "Task \"" << deletedItem << "\" has been removed." << endl;
+}
+
+int main() {
+    vector<string> tasks;
+    int choice = 0;
+
+    while (true) {
+        cout << "============================" << endl;
+        cout << "     TO-DO LIST MENU" << endl;
+        cout << "============================" << endl;
+        cout << "1. Add task" << endl;
+        cout << "2. View tasks" << endl;
+        cout << "3. Delete task" << endl;
+        cout << "4. Quit" << endl;
+        cout << "Enter your choice (1-4): ";
+
+        if (!(cin >> choice)) {
+            cout << "Invalid choice." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
+        // clear newline before getline in addTask
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (choice == 1) {
+            addTask(tasks);
+        } else if (choice == 2) {
+            viewTasks(tasks);
+        } else if (choice == 3) {
+            viewTasks(tasks);
+            deleteTask(tasks);
+        } else if (choice == 4) {
+            cout << "Goodbye!" << endl;
+            break;
+        } else {
+            cout << "Invalid choice. Please enter 1-4." << endl;
+        }
+    }
+
+    return 0;
+}
+

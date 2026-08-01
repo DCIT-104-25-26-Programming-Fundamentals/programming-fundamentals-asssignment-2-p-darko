@@ -46,3 +46,28 @@
 #include <iostream>
 using namespace std;
 
+char calculateGrade(int mark) {
+    if (mark < 0 || mark > 100) return '\0';
+    if (mark >= 80) return 'A';
+    if (mark >= 70) return 'B';
+    if (mark >= 60) return 'C';
+    if (mark >= 50) return 'D';
+    return 'F';
+}
+
+int main() {
+    int inputMark;
+    cout << "Enter student score (0-100): ";
+    cin >> inputMark;
+
+    char result = calculateGrade(inputMark);
+
+    if (result == '\0') {
+        cout << "Error: Score must be between 0 and 100." << endl;
+    } else {
+        cout << "Grade: " << result << endl;
+    }
+
+    return 0;
+}
+
